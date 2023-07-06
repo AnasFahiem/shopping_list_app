@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
-import './add_item.dart';
+import '../widgets/new_Item.dart';
 import '../data/dummy_items.dart';
 
 class HomeBage extends StatelessWidget {
   const HomeBage({super.key});
-  void _modalBottomSheetMenu(context) {
-    Navigator.pushNamed(context, AddItem.routeName);
+  // void _addItem(context) {
+  //   Navigator.pushNamed(context, AddItem.routeName);
+  // }
+
+  void _modalBottomSheet(context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => NewItem(),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Groceries List'),
+          title: const Text('Groceries List'),
         ),
         drawer: Drawer(
           child: Column(
@@ -21,13 +32,13 @@ class HomeBage extends StatelessWidget {
                 height: 100,
                 width: double.infinity,
                 color: ThemeData.dark().colorScheme.surface,
-                child: Center(
+                child: const Center(
                   child: Text(
                     'Shopping List',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Color.fromARGB(255, 147, 229, 250),
                     ),
                   ),
                 ),
@@ -54,9 +65,9 @@ class HomeBage extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            _modalBottomSheetMenu(context);
+            _modalBottomSheet(context);
           },
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ));
   }
 }
