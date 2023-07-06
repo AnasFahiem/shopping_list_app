@@ -46,8 +46,9 @@ class NewItem extends StatelessWidget {
               children: [
                 Expanded(
                   child: TextFormField(
-                    decoration: InputDecoration(
-                      label: const Text('Quantity'),
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      label: Text('Quantity'),
                     ),
                     validator: (value) {
                       return null;
@@ -57,8 +58,8 @@ class NewItem extends StatelessWidget {
                 const SizedBox(width: 8),
                 Expanded(
                   child: DropdownButtonFormField<Category>(
-                    decoration: InputDecoration(
-                      label: const Text('Category'),
+                    decoration: const InputDecoration(
+                      label: Text('Category'),
                     ),
                     items: [
                       for (final category in categories.entries)
@@ -71,7 +72,7 @@ class NewItem extends StatelessWidget {
                                   backgroundColor: category.value.color,
                                   child: Text(category.value.title[0]),
                                 ),
-                                SizedBox(width: 8),
+                                const SizedBox(width: 8),
                                 Text(category.value.title),
                               ],
                             ))
@@ -81,7 +82,7 @@ class NewItem extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -91,7 +92,7 @@ class NewItem extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () => _save(context),
-                  child: Text('Add Item'),
+                  child: const Text('Add Item'),
                 ),
               ],
             ),
