@@ -1,12 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_list_app/models/grocery_item.dart';
 import '../widgets/new_Item.dart';
-import '../data/dummy_items.dart';
 
-class HomeBage extends StatelessWidget {
-  const HomeBage({super.key});
-  // void _addItem(context) {
-  //   Navigator.pushNamed(context, AddItem.routeName);
-  // }
+class HomeBage extends StatefulWidget {
+  HomeBage({super.key});
+
+  @override
+  State<HomeBage> createState() => _HomeBageState();
+}
+
+class _HomeBageState extends State<HomeBage> {
+  void _addItem(context) async {
+    final newItem =
+        await Navigator.of(context).push<GroceryItem>(MaterialPageRoute(
+      builder: (context) => NewItem(),
+    ));
+
+    if (newItem != null) {
+      groceryItems.add(newItem);
+    }
+  }
+
+  final List groceryItems = [];
 
   void _modalBottomSheet(context) {
     showModalBottomSheet(
