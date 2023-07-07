@@ -27,6 +27,7 @@ class _NewItemState extends State<NewItem> {
         quantity: _itemQuantity,
         category: _itemCategory,
       ));
+      print(_itemName);
     }
   }
 

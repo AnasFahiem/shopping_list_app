@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_list_app/models/grocery_item.dart';
+import '../data/categories.dart';
 import '../widgets/new_Item.dart';
+import '../models/category.dart';
 
 class HomeBage extends StatefulWidget {
   HomeBage({super.key});
@@ -10,20 +12,19 @@ class HomeBage extends StatefulWidget {
 }
 
 class _HomeBageState extends State<HomeBage> {
-  void _addItem(context) async {
-    final newItem =
-        await Navigator.of(context).push<GroceryItem>(MaterialPageRoute(
-      builder: (context) => NewItem(),
-    ));
+  // Future<void> _addItem(context) async {
+  //   print("done2");
+  //   final newItem =
+  //       await Navigator.of(context).push<GroceryItem>(MaterialPageRoute(
+  //     builder: (context) => NewItem(),
+  //   ));
 
-    if (newItem != null) {
-      groceryItems.add(newItem);
-    }
-  }
+  //   setState(() {
+  //     groceryItems.add(newItem);
+  //   });
+  // }
 
-  final List groceryItems = [];
-
-  void _modalBottomSheet(context) {
+  void _modalBottomSheet(context) async {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -32,7 +33,26 @@ class _HomeBageState extends State<HomeBage> {
         borderRadius: BorderRadius.circular(10),
       ),
     );
+    //  final newItem =
+    //      await Navigator.of(context).push<GroceryItem>(MaterialPageRoute(
+    //    builder: (context) => NewItem(),
+    //  ));
+
+    //  if (newItem != null) {
+    //    setState(() {
+    //      groceryItems.add(newItem);
+    //    });
+    //  }
   }
+
+  final List groceryItems = [
+    GroceryItem(
+      id: '1',
+      name: 'Apple',
+      quantity: 2,
+      category: categories[Categories.carbs]!,
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +101,7 @@ class _HomeBageState extends State<HomeBage> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             _modalBottomSheet(context);
+            // _addItem(context);
           },
           child: const Icon(Icons.add),
         ));
