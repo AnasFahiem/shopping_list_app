@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_list_app/models/grocery_item.dart';
-import '../data/categories.dart';
 import '../widgets/new_Item.dart';
-import '../models/category.dart';
+import 'package:provider/provider.dart';
 
 class HomeBage extends StatefulWidget {
-  HomeBage({super.key});
+  const HomeBage({super.key});
 
   @override
   State<HomeBage> createState() => _HomeBageState();
 }
 
 class _HomeBageState extends State<HomeBage> {
-  // Future<void> _addItem(context) async {
+  // void _addItem() async {
   //   print("done2");
   //   final newItem =
   //       await Navigator.of(context).push<GroceryItem>(MaterialPageRoute(
   //     builder: (context) => NewItem(),
   //   ));
-
+  //   if (newItem == null) {
+  //     return;
+  //   }
   //   setState(() {
   //     groceryItems.add(newItem);
   //   });
@@ -33,26 +34,16 @@ class _HomeBageState extends State<HomeBage> {
         borderRadius: BorderRadius.circular(10),
       ),
     );
-    //  final newItem =
-    //      await Navigator.of(context).push<GroceryItem>(MaterialPageRoute(
-    //    builder: (context) => NewItem(),
-    //  ));
-
-    //  if (newItem != null) {
-    //    setState(() {
-    //      groceryItems.add(newItem);
-    //    });
-    //  }
   }
 
-  final List groceryItems = [
-    GroceryItem(
-      id: '1',
-      name: 'Apple',
-      quantity: 2,
-      category: categories[Categories.carbs]!,
-    ),
-  ];
+  // final List groceryItems = [
+  //   GroceryItem(
+  //     id: '1',
+  //     name: 'Apple',
+  //     quantity: 2,
+  //     category: categories[Categories.carbs]!,
+  //   ),
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -81,29 +72,36 @@ class _HomeBageState extends State<HomeBage> {
             ],
           ),
         ),
-        body: ListView.builder(
-          itemCount: groceryItems.length,
-          itemBuilder: (context, index) {
-            final item = groceryItems[index];
-            return ListTile(
-              leading: ExcludeSemantics(
-                child: CircleAvatar(
-                  backgroundColor: item.category.color,
-                  child: Text(item.category.title[0]),
-                ),
-              ),
-              title: Text(item.name),
-              subtitle: Text(item.category.title),
-              trailing: Text('${item.quantity}'),
+        body: Consumer<GrocerItemProvider>(
+          builder: (context, groceryitem, child) {
+            return ListView.builder(
+              itemCount: groceryitem.groceryItems.length,
+              itemBuilder: (context, index) {
+                final item = groceryitem.groceryItems[index];
+                return ListTile(
+                  leading: ExcludeSemantics(
+                    child: CircleAvatar(
+                      backgroundColor: item.category.color,
+                      child: Text(item.category.title[0]),
+                    ),
+                  ),
+                  title: Text(item.name),
+                  subtitle: Text(item.category.title),
+                  trailing: Text('${item.quantity}'),
+                );
+              },
             );
           },
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _modalBottomSheet(context);
-            // _addItem(context);
-          },
-          child: const Icon(Icons.add),
-        ));
+        floatingActionButton: Consumer<GrocerItemProvider>(
+            builder: (context, groceryitem, child) {
+          return FloatingActionButton(
+            onPressed: () {
+              _modalBottomSheet(context);
+              groceryitem.addGroceryItem(context);
+            },
+            child: const Icon(Icons.add),
+          );
+        }));
   }
 }
