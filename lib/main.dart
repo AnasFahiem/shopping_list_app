@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_list_app/models/grocery_item.dart';
+import 'package:shopping_list_app/screens/new_itemscreen.dart';
 import 'screens/grocery_list.dart';
 
 void main() {
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: const Color.fromARGB(255, 50, 58, 60),
         ),
         home: HomeBage(),
+        routes: {
+          NewItemScreen.routeName: (context) => NewItemScreen(),
+        },
       ),
     );
   }

@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shopping_list_app/data/categories.dart';
 import 'package:shopping_list_app/models/grocery_item.dart';
 import '../models/category.dart';
 
-class NewItem extends StatefulWidget {
+class NewItem extends StatelessWidget {
   NewItem({super.key});
 
-  @override
-  State<NewItem> createState() => _NewItemState();
-}
-
-class _NewItemState extends State<NewItem> {
   final _formKey = GlobalKey<FormState>();
 
   var _itemName = "";
+
   var _itemQuantity = 1;
+
   var _itemCategory = categories[Categories.vegetables]!;
 
   void _save(context) {
@@ -38,7 +36,7 @@ class _NewItemState extends State<NewItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.70,
+      height: MediaQuery.of(context).size.height * 1,
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Form(
@@ -146,9 +144,16 @@ class _NewItemState extends State<NewItem> {
                     onPressed: () => _reset(context),
                     child: const Text('reset'),
                   ),
-                  ElevatedButton(
-                    onPressed: () => _save(context),
-                    child: const Text('Add Item'),
+                  Consumer<GrocerItemProvider>(
+                    builder: (context, groceryitem, child) {
+                      return ElevatedButton(
+                        onPressed: () {
+                          _save(context);
+                          groceryitem.addGroceryItem(context);
+                        },
+                        child: const Text('Add Item'),
+                      );
+                    },
                   ),
                 ],
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_list_app/screens/new_itemscreen.dart';
 
 import '../widgets/new_Item.dart';
 import './category.dart';
@@ -20,16 +21,14 @@ class GroceryItem {
 class GrocerItemProvider with ChangeNotifier {
   List<GroceryItem> groceryItems = [];
 
-  void addGroceryItem(context) async {
+  void addGroceryItem(GroceryItem it) async {
     print("done2");
-    final newItem =
-        await Navigator.of(context).push<GroceryItem>(MaterialPageRoute(
-      builder: (context) => NewItem(),
-    ));
-    if (newItem == null) {
-      return;
+
+    if (it != null) {
+      groceryItems.add(it);
+      print("done3");
+      notifyListeners();
     }
-    groceryItems.add(newItem);
-    notifyListeners();
+    return;
   }
 }

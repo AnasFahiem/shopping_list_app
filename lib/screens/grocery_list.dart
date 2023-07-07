@@ -3,6 +3,8 @@ import 'package:shopping_list_app/models/grocery_item.dart';
 import '../widgets/new_Item.dart';
 import 'package:provider/provider.dart';
 
+import 'new_itemscreen.dart';
+
 class HomeBage extends StatefulWidget {
   const HomeBage({super.key});
 
@@ -97,8 +99,8 @@ class _HomeBageState extends State<HomeBage> {
             builder: (context, groceryitem, child) {
           return FloatingActionButton(
             onPressed: () {
-              _modalBottomSheet(context);
-              groceryitem.addGroceryItem(context);
+              //_modalBottomSheet(context);
+              Navigator.of(context).pushNamed(NewItemScreen.routeName);
             },
             child: const Icon(Icons.add),
           );
